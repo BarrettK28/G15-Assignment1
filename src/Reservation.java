@@ -13,14 +13,14 @@ public class Reservation {
 	private boolean checkedIn;
 	
 	//constructor
-	public Reservation(int id, Room room, String studentName, TimeSlot timeSlot, boolean canceled, boolean checkedIn) {
+	public Reservation(int id, Room room, String studentName, TimeSlot timeSlot) {
 		// ID must be positive		
 		if (id<=0)
 		{
 			throw new IllegalArgumentException();
 		}
 		//studentName must not be null or blank
-		if (studentName == null || studentName == " ")
+		if (studentName == null || studentName.length() == 0)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -31,23 +31,26 @@ public class Reservation {
 			throw new IllegalArgumentException();
 		}
 		
-		//cannot be canceled and checked in
-		if (checkedIn == true && canceled == true)
-		{
-			throw new IllegalArgumentException();
-		}
-		
 		//initializing after enforcing invariants 
 		this.id = id;
 		this.room = room;
 		this.studentName = studentName;
 		this.timeSlot = timeSlot;
-		this.canceled = canceled;
-		this.checkedIn = checkedIn;
+		this.canceled = false;
+		this.checkedIn = false;
 		
 	}
 	
 	//methods
+	
+	//helper method
+	private boolean canCheckIn() {
+		if (!checkedIn && !canceled)
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	//marks the reservation canceled if allowed
 	public void cancel()
@@ -55,25 +58,35 @@ public class Reservation {
 		if (this.canceled == true)
 		{
 			System.out.println("Reservation has already been cancelled.");
-		}
-		else if(this.checkedIn == false)
-		{
-			System.out.println("Reservation was not checkedIn, so cannot cancel Reservation.");
+			return;
 		}
 		
-		//if was checked in and was not previously cancelled
-		this.canceled = true;
-		this.checkedIn = false;
-		System.out.println("Reservation has been cancelled.");
+		if(this.checkedIn == true)
+		{
+			System.out.println("Reservation is already active, cannot cancel reservation.");
+			return;
+		}
+		
+		this.canceled = true; 
+		System.out.println("Reservation has been cancelled!");
 	}
 	
 	//marks the reservation checked in if allowed
 	public void checkIn()
 	{
+		if(canCheckIn()){
+			this.checkedIn = true;
+			System.out.println("Reservation has been checked in!.");
+			return;
+		}
 		
+		System.out.println("You cannot check in.");
 	}
 	
-	//Methods that answer questions such as isActive() or canCheckIn() are encouraged
+	//recommended toString method
+	public String toString()
+	{
+		return "id: " + id + ". Room: " + room + ". Student name: " + studentName + ". Time slot: " + timeSlot.toString() + ". Canceled: " + canceled + ". checked in: " + checkedIn;
+	}
 	
-	//toString() prints a useful line including id, student, room, time slot, and status
 }
