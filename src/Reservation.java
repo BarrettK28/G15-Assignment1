@@ -24,7 +24,6 @@ public class Reservation {
 		{
 			throw new IllegalArgumentException();
 		}
-		
 		//cannot be null
 		if (timeSlot == null || room == null)
 		{
@@ -45,6 +44,8 @@ public class Reservation {
 	
 	//helper method
 	private boolean canCheckIn() {
+		//if they have not checked in(if they were checked in they can't check in again AND
+		//if they have not canceled(if canceled once, cannot reschedule for same room)
 		if (!checkedIn && !canceled)
 		{
 			return true;

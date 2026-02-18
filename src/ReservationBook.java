@@ -66,7 +66,7 @@ public class ReservationBook {
 	//short comment explaining my reasoning: 
 	
 	//chose by reference: comparing rooms by name without using equals method seemed difficult, 
-	//by reference checks the room object instead (which will work for our example)
+	//by reference checks the room object instead (which will work the same for our example)
 	
 	public void printForRoom(Room room){
 		System.out.println("Reservations for room: \n");
