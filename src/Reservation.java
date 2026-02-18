@@ -83,10 +83,19 @@ public class Reservation {
 		System.out.println("You cannot check in.");
 	}
 	
+	//getter
+	public int getId() {
+		return id;
+	}
+	
+	public Room getRoom() {
+		return room;
+	}
+	
 	//recommended toString method
 	public String toString()
 	{
-		return "id: " + id + ". Room: " + room + ". Student name: " + studentName + ". Time slot: " + timeSlot.toString() + ". Canceled: " + canceled + ". checked in: " + checkedIn;
+		return "id: " + id + ". Room: " + room + ". Student name: " + studentName + ". Time slot: " + timeSlot.toString() + ". Canceled: " + canceled + ". checked in: " + checkedIn + ".\n";
 	}
 	
 }
